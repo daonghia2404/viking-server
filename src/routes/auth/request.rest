@@ -1,0 +1,37 @@
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+  "username": "test1",
+  "password": "12345678",
+  "email": "daonghia2404@gmail.com"
+}
+
+###
+POST http://localhost:3000/sign-in
+Content-Type: application/json
+
+{
+  "username": "test1",
+  "password": "12345678"
+}
+###
+DELETE http://localhost:3000/logout
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZmM4N2JiZGFhYjY3MmVhODE3ZDQ4OSIsInVzZXJuYW1lIjoidGVzdDEiLCJpYXQiOjE2MTA0NzM1OTcsImV4cCI6MTYxMDQ3MzYyN30.6KruK2Vs2RY8mTiZ0wuNHjmlxpmhFh6DBo5Y_CVZwhs
+
+###
+POST http://localhost:3000/refresh-token
+x-refresh-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZmM4N2JiZGFhYjY3MmVhODE3ZDQ4OSIsInVzZXJuYW1lIjoidGVzdDEiLCJpYXQiOjE2MTA0NzMyNDksImV4cCI6MTYxMTA3ODA0OX0.TQoHpp7-hBR6qDkDL2XeAzs_eLI_uq9hyHUbq3O8lYY
+
+###
+POST http://localhost:3000/forgot-password
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZmM4N2JiZGFhYjY3MmVhODE3ZDQ4OSIsInVzZXJuYW1lIjoidGVzdDEiLCJpYXQiOjE2MTA0NzY4MTMsImV4cCI6MTYxMDczNjAxM30.NouY0f_s8WUMlQ4e0RZzCpTWZORqUALiCS88xmwoyfk
+Content-Type: application/json
+
+{
+  "email": "daohieu244@gmail.com"
+}
+
+###
+GET  http://localhost:3000/test-auth
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZmM4N2JiZGFhYjY3MmVhODE3ZDQ4OSIsInVzZXJuYW1lIjoidGVzdDEiLCJpYXQiOjE2MTA0NzMzNjEsImV4cCI6MTYxMDQ3MzM5MX0.38N9PCy5sdVcZqjWfl2SjY8IVBAS94VHYY3Ysll6Nlk
