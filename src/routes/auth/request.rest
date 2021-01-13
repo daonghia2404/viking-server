@@ -13,11 +13,11 @@ Content-Type: application/json
 
 {
   "username": "test1",
-  "password": "12345678"
+  "password": "daonghia240404"
 }
 ###
 DELETE http://localhost:3000/logout
-x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZmM4N2JiZGFhYjY3MmVhODE3ZDQ4OSIsInVzZXJuYW1lIjoidGVzdDEiLCJpYXQiOjE2MTA0NzM1OTcsImV4cCI6MTYxMDQ3MzYyN30.6KruK2Vs2RY8mTiZ0wuNHjmlxpmhFh6DBo5Y_CVZwhs
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZmM4N2JiZGFhYjY3MmVhODE3ZDQ4OSIsInVzZXJuYW1lIjoidGVzdDEiLCJpYXQiOjE2MTA1MjkxNzQsImV4cCI6MTYxMDc4ODM3NH0.ZPeVXwk72BjH60LBZBtNTJ4fZDQEraP2RUj5JjRHjfs
 
 ###
 POST http://localhost:3000/refresh-token
@@ -25,11 +25,26 @@ x-refresh-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZmM4N2J
 
 ###
 POST http://localhost:3000/forgot-password
-x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZmM4N2JiZGFhYjY3MmVhODE3ZDQ4OSIsInVzZXJuYW1lIjoidGVzdDEiLCJpYXQiOjE2MTA0NzY4MTMsImV4cCI6MTYxMDczNjAxM30.NouY0f_s8WUMlQ4e0RZzCpTWZORqUALiCS88xmwoyfk
 Content-Type: application/json
 
 {
-  "email": "daohieu244@gmail.com"
+  "email": "daonghia2404@gmail.com"
+}
+
+###
+POST  http://localhost:3000/reset-password
+Content-Type: application/json
+
+{
+  "resetToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhb25naGlhMjQwNEBnbWFpbC5jb20iLCJpYXQiOjE2MTA1MjkyMzQsImV4cCI6MTYxMDUyOTUzNH0.YAmOKsrVD42rk3v5N7D0wMOiAEDjyjV473G_VVimT5o",
+  "newPassword": "daonghia240404"
+}
+###
+POST  http://localhost:3000/check-reset-password
+Content-Type: application/json
+
+{
+  "resetToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhb25naGlhMjQwNEBnbWFpbC5jb20iLCJpYXQiOjE2MTA1MjkyMzQsImV4cCI6MTYxMDUyOTUzNH0.YAmOKsrVD42rk3v5N7D0wMOiAEDjyjV473G_VVimT5o"
 }
 
 ###

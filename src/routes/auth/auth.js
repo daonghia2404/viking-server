@@ -8,6 +8,7 @@ const {
   signToken,
   authenticateToken,
   authenticateRefreshToken,
+  authenticateResetPasswordToken,
 } = require("../../controllers/auth/auth");
 const {createTransporter, configMailOption} = require('../../utils/mail')
 
@@ -132,9 +133,9 @@ router.post("/refresh-token", authenticateRefreshToken, async (req, res) => {
   });
 });
 
-router.post('/forgot-password',authenticateToken,  async (req, res) => {
+router.post('/forgot-password', async (req, res) => {
   const resetPasswordToken = signToken("reset-password", {
-    username: req.response.username,
+    email: req.body.email,
   });
   const targetEmail = req.body.email
   if (!validator.isEmail(targetEmail)) {
@@ -161,13 +162,31 @@ router.post('/forgot-password',authenticateToken,  async (req, res) => {
         success: false,
         message: 'Lỗi hệ thống'
       })
-      console.log(email)
     } else {
       res.json({
         success: true,
-        response: {},
+        response: {
+          resetPasswordToken,
+        },
       })
     }
+  })
+})
+
+router.post('/check-reset-password', authenticateResetPasswordToken, async (req, res) => {
+  res.json({
+    success: true,
+    response: {},
+  })
+})
+
+router.post('/reset-password', authenticateResetPasswordToken, async (req, res) => {
+  const user = { email: req.response.email }
+  const hashPw = await hassPasword(req.body.newPassword);
+  await User.updateOne({ email: user.email }, { password: hashPw })
+  res.json({
+    success: true,
+    response: {},
   })
 })
 

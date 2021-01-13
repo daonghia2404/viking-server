@@ -42,7 +42,21 @@ const authenticateRefreshToken = (req, res, next) => {
     };
     next();
   });
-
 }
 
-module.exports = { hassPasword, comparePassword, signToken, authenticateToken, authenticateRefreshToken };
+const authenticateResetPasswordToken = (req, res, next) => {
+  const token = req.body.resetToken
+  jwt.verify(token, process.env.RESET_PASSWORD_TOKEN_KEY, (err, response) => {
+    if (err) {
+      res.json({
+        success: false,
+        message: 'Token key đã hết hạn sử dụng'
+      })
+      return
+    }
+    req.response = response
+    next();
+  });
+}
+
+module.exports = { hassPasword, comparePassword, signToken, authenticateToken, authenticateRefreshToken, authenticateResetPasswordToken };
