@@ -1,0 +1,15 @@
+###
+POST http://localhost:3000/newfeed
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA3MzkwMTUsImV4cCI6MTYxMDk5ODIxNX0.3gbOUg_c7CbvRpekDjby2hgE_ING53l2u4u1eT8LZLE
+Content-Type: application/json
+
+{
+  "type": "NORMAL",
+  "caption": "This is a caption !",
+  "media": [],
+  "tags": []
+}
+
+###
+GET http://localhost:3000/newfeed/600205328c599d09c0f0e13c
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA3MzkwMTUsImV4cCI6MTYxMDk5ODIxNX0.3gbOUg_c7CbvRpekDjby2hgE_ING53l2u4u1eT8LZLE

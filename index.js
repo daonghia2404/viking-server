@@ -26,6 +26,9 @@ const initConnectDb = async () => {
     gfs.collection('uploads')
     app.set('gfs', gfs);
 
+    
+    await mongoose.connect(DB_URI, dbOptions)
+
     app.listen(PORT, () => {
       console.log(`App listening at http://localhost:${PORT}`)
     })
@@ -38,6 +41,8 @@ initConnectDb()
 // Routes
 const userRoute = require('./src/routes/auth/auth')
 const uploadsRoute = require('./src/routes/uploads/uploads')
+const newfeedRoute = require('./src/routes/newfeed/newfeed')
 
 app.use(userRoute)
 app.use(uploadsRoute)
+app.use(newfeedRoute)

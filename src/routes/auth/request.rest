@@ -2,7 +2,7 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-  "username": "test1",
+  "username": "test2",
   "password": "12345678",
   "email": "daonghia2404@gmail.com"
 }
@@ -12,8 +12,8 @@ POST http://localhost:3000/sign-in
 Content-Type: application/json
 
 {
-  "username": "test1",
-  "password": "daonghia240404"
+  "username": "test2",
+  "password": "12345678"
 }
 ###
 DELETE http://localhost:3000/logout
@@ -28,7 +28,7 @@ POST http://localhost:3000/forgot-password
 Content-Type: application/json
 
 {
-  "email": "daonghia2404@gmail.com"
+  "email": "daonghia04@gmail.com"
 }
 
 ###
