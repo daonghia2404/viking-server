@@ -1,16 +1,24 @@
 const mongoose = require('mongoose')
 
+const reactionTypeSchema = new mongoose.Schema({
+  count: {
+    type: Number,
+    required: true,
+  },
+  type: {
+    type: String,
+    enum: ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'],
+    required: true,
+  },
+})
+
 const ReactionSchema = new mongoose.Schema(
   {
-    count: {
+    total: {
       type: Number,
       required: true,
     },
-    type: {
-      type: String,
-      enum: ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'],
-      required: true,
-    },
+    data: [reactionTypeSchema],
   },
   { timestamps: true }
 )
@@ -26,7 +34,7 @@ const CommentSchema = new mongoose.Schema(
       required: true,
     },
     reactions: {
-      type: [ReactionSchema],
+      type: ReactionSchema,
       required: true,
     },
   },
@@ -49,7 +57,7 @@ const MediaSchema = new mongoose.Schema(
       required: true,
     },
     reactions: {
-      type: [ReactionSchema],
+      type: ReactionSchema,
       required: true,
     },
   },
@@ -66,14 +74,13 @@ const NewFeedSchema = new mongoose.Schema(
     },
     caption: {
       type: String,
-      required: true,
     },
-    media: {
+    medias: {
       type: [MediaSchema],
       required: true,
     },
     reactions: {
-      type: [ReactionSchema],
+      type: ReactionSchema,
       required: true,
     },
     comments: {
@@ -85,7 +92,7 @@ const NewFeedSchema = new mongoose.Schema(
       required: true,
     },
     userCreatePost: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: 'User',
       required: true,
     },

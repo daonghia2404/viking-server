@@ -5,11 +5,29 @@ Content-Type: application/json
 
 {
   "type": "NORMAL",
-  "caption": "This is a caption !",
+  "caption": "Sample caption 1",
   "media": [],
   "tags": []
 }
 
 ###
-GET http://localhost:3000/newfeed/600205328c599d09c0f0e13c
+GET http://localhost:3000/newfeed/60040be78aa8871c40695056
 x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA3MzkwMTUsImV4cCI6MTYxMDk5ODIxNX0.3gbOUg_c7CbvRpekDjby2hgE_ING53l2u4u1eT8LZLE
+
+###
+GET http://localhost:3000/newfeeds?page=1&perPage=10
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA4Njg5MTAsImV4cCI6MTYxMTEyODExMH0.kwu4xXV0YCFVa1UeCgUJZN8Iv0wnmF7wGu1B9VeRrv8
+
+###
+GET http://localhost:3000/newfeeds/user/test2
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA3MzkwMTUsImV4cCI6MTYxMDk5ODIxNX0.3gbOUg_c7CbvRpekDjby2hgE_ING53l2u4u1eT8LZLE
+
+###
+PUT http://localhost:3000/newfeed/reaction/60040be78aa8871c40695056
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA3MzkwMTUsImV4cCI6MTYxMDk5ODIxNX0.3gbOUg_c7CbvRpekDjby2hgE_ING53l2u4u1eT8LZLE
+Content-Type: application/json
+
+{
+  "type": "LIKE",
+  "isReacted": true
+}
