@@ -1,5 +1,39 @@
 const User = require('../../models/user/user')
 
+const showDataReaction = async (dataReaction) => {
+  const reactions = []
+  await Promise.all(
+    dataReaction.data.map(async (reaction) => {
+      const targetUserReaction = await User.findOne({
+        username: reaction.username,
+      })
+
+      reactions.push({
+        type: reaction.type,
+        username: targetUserReaction.username,
+        avatar: targetUserReaction.avatar || null,
+      })
+    })
+  )
+  return reactions
+}
+
+const showCommentData = async (dataComments) => {
+  const comments = []
+  await Promise.all(
+    dataComments.map(async (comment) => {
+      comments.push({
+        caption: comment.caption,
+        id: comment._id,
+        media: comment.media,
+        userCreateComment: comment.userCreateComment,
+        createdAt: comment.createdAt,
+      })
+    })
+  )
+  return comments
+}
+
 const showDataNewfeed = async (targetNewFeeds) => {
   const data = []
   await Promise.all(
@@ -9,17 +43,10 @@ const showDataNewfeed = async (targetNewFeeds) => {
       })
 
       if (targetUserPost) {
-        const reactions = []
-        const comments = []
+        const reactions = await showDataReaction(item.reactions)
+        const comments = await showCommentData(item.comments)
         const tags = []
         const medias = []
-
-        item.reactions.data.map((reaction) =>
-          reactions.push({
-            count: reaction.count,
-            type: reaction.type,
-          })
-        )
 
         data.push({
           id: item._id,
@@ -27,7 +54,7 @@ const showDataNewfeed = async (targetNewFeeds) => {
           caption: item.caption,
           medias,
           reactions: {
-            total: item.reactions.total,
+            total: item.reactions.totals,
             data: reactions,
           },
           comments,
@@ -75,22 +102,121 @@ const checkTypeReaction = (req, res, next) => {
 }
 
 const updateReaction = (newReactionData, oldReaction) => {
-  let total = 0
-  const data = oldReaction
-  const typeReaction = targetTypeReaction(newReactionData.type)
-  if (newReactionData.isReacted) {
-    data[typeReaction].count -= 1
-    if (data[typeReaction].count < 0) data[typeReaction].count = 0
-  } else {
-    data[typeReaction].count += 1
+  const data = oldReaction.data
+  const totals = {
+    likes: 0,
+    loves: 0,
+    wows: 0,
+    hahas: 0,
+    sads: 0,
+    angrys: 0,
+    totalReactions: 0,
+  }
+  const isExisted = { status: '', index: -1 }
+
+  data.map((item, index) => {
+    if (
+      item.username === newReactionData.username &&
+      item.type !== newReactionData.type
+    ) {
+      isExisted.status = 'CHANGE'
+      isExisted.index = index
+    } else if (
+      item.username === newReactionData.username &&
+      item.type === newReactionData.type
+    ) {
+      isExisted.status = 'EXISTED'
+      isExisted.index = index
+    }
+  })
+
+  const newReaction = {
+    type: newReactionData.type,
+    username: newReactionData.username,
   }
 
-  data.map((item, index) => (total += item.count))
+  if (isExisted.status === 'CHANGE') {
+    data[isExisted.index] = newReaction
+  } else if (isExisted.status === 'EXISTED') {
+    data.splice(isExisted.index, 1)
+  } else {
+    data.push(newReaction)
+  }
+
+  data.map((item) => {
+    if (item.type === 'LIKE') totals.likes += 1
+    if (item.type === 'LOVE') totals.loves += 1
+    if (item.type === 'WOW') totals.wows += 1
+    if (item.type === 'HAHA') totals.hahas += 1
+    if (item.type === 'SAD') totals.sads += 1
+    if (item.type === 'ANGRY') totals.angrys += 1
+    totals.totalReactions = data.length
+  })
 
   return {
-    total,
     data,
+    totals,
   }
 }
 
-module.exports = { showDataNewfeed, updateReaction, checkTypeReaction }
+const createComment = async (commentData, commentsOld) => {
+  const data = commentsOld
+  const targetUserPost = await User.findOne({ username: commentData.username })
+  const reactions = await showDataReaction({
+    totals: {
+      likes: 0,
+      loves: 0,
+      wows: 0,
+      hahas: 0,
+      sads: 0,
+      angrys: 0,
+      totalReactions: 0,
+    },
+    data: [],
+  })
+
+  data.push({
+    caption: commentData.caption,
+    media: commentData.media,
+    reactions,
+    userCreateComment: {
+      username: targetUserPost.username,
+      avatar: targetUserPost.avatar || null,
+    },
+  })
+
+  return data
+}
+
+const updateComment = async (commentData, commentsOld) => {
+  const data = commentsOld
+  const commentTarget = {
+    data: {},
+    index: -1,
+  }
+  data.map((item, index) => {
+    if (item.userCreateComment.username === commentData.username) {
+      commentTarget.data = item
+      commentTarget.index = index
+    }
+  })
+  if (commentTarget.data.id) {
+    data[commentTarget.index] = {
+      userCreateComment: commentTarget.data.userCreateComment,
+      createdAt: commentTarget.data.createdAt,
+      caption: commentData.caption,
+      media: commentData.media,
+    }
+    return data
+  } else {
+    return false
+  }
+}
+
+module.exports = {
+  showDataNewfeed,
+  updateReaction,
+  checkTypeReaction,
+  createComment,
+  updateComment,
+}

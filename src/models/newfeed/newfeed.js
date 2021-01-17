@@ -1,42 +1,56 @@
 const mongoose = require('mongoose')
 
 const reactionTypeSchema = new mongoose.Schema({
-  count: {
-    type: Number,
-    required: true,
-  },
   type: {
     type: String,
     enum: ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'],
+    required: true,
+  },
+  username: {
+    type: String,
+    ref: 'User',
+    required: true,
+  },
+  avatar: {
+    type: String,
+    ref: 'User',
     required: true,
   },
 })
 
 const ReactionSchema = new mongoose.Schema(
   {
-    total: {
-      type: Number,
-      required: true,
+    totals: {
+      likes: {
+        type: Number,
+        required: true,
+      },
+      loves: {
+        type: Number,
+        required: true,
+      },
+      wows: {
+        type: Number,
+        required: true,
+      },
+      hahas: {
+        type: Number,
+        required: true,
+      },
+      sads: {
+        type: Number,
+        required: true,
+      },
+      angrys: {
+        type: Number,
+        required: true,
+      },
+      totalReactions: {
+        type: Number,
+        required: true,
+      },
     },
     data: [reactionTypeSchema],
-  },
-  { timestamps: true }
-)
-
-const CommentSchema = new mongoose.Schema(
-  {
-    userCreatePost: {
-      type: String,
-      required: true,
-    },
-    caption: {
-      type: String,
-      required: true,
-    },
-    reactions: {
-      type: ReactionSchema,
-      required: true,
-    },
   },
   { timestamps: true }
 )
@@ -54,6 +68,36 @@ const MediaSchema = new mongoose.Schema(
     },
     fileName: {
       type: String,
+      required: true,
+    },
+    reactions: {
+      type: ReactionSchema,
+      required: true,
+    },
+  },
+  { timestamps: true }
+)
+
+const CommentSchema = new mongoose.Schema(
+  {
+    userCreateComment: {
+      username: {
+        type: String,
+        ref: 'User',
+        required: true,
+      },
+      avatar: {
+        type: String,
+        ref: 'User',
+        required: true,
+      },
+    },
+    caption: {
+      type: String,
+      required: true,
+    },
+    medias: {
+      type: [MediaSchema],
       required: true,
     },
     reactions: {

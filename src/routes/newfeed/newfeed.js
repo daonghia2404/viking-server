@@ -7,6 +7,8 @@ const NewFeed = require('../../models/newfeed/newfeed')
 const {
   showDataNewfeed,
   updateReaction,
+  createComment,
+  updateComment,
   checkTypeReaction,
 } = require('../../controllers/newfeed/newfeed')
 
@@ -19,15 +21,16 @@ router.post('/newfeed', authenticateToken, async (req, res) => {
     tags: requestData.tags || [],
     comments: [],
     reactions: {
-      total: 0,
-      data: [
-        { count: 0, type: 'LIKE' },
-        { count: 0, type: 'LOVE' },
-        { count: 0, type: 'WOW' },
-        { count: 0, type: 'HAHA' },
-        { count: 0, type: 'SAD' },
-        { count: 0, type: 'ANGRY' },
-      ],
+      totals: {
+        likes: 0,
+        loves: 0,
+        wows: 0,
+        hahas: 0,
+        sads: 0,
+        angrys: 0,
+        totalReactions: 0,
+      },
+      data: [],
     },
     userCreatePost: req.response.username,
   })
@@ -125,15 +128,14 @@ router.put(
   async (req, res) => {
     const reaction = {
       type: req.body.type,
-      isReacted: req.body.isReacted,
+      username: req.response.username,
     }
 
     try {
       const targetNewFeed = await NewFeed.findOne({ _id: req.params.id })
       if (targetNewFeed) {
-        const targetNewFeedReaction = targetNewFeed.reactions.data
+        const targetNewFeedReaction = targetNewFeed.reactions
         const newReaction = updateReaction(reaction, targetNewFeedReaction)
-
         await NewFeed.findOneAndUpdate(
           { _id: req.params.id },
           { reactions: newReaction }
@@ -142,6 +144,80 @@ router.put(
           success: true,
           response: {},
         })
+      } else {
+        res.status(404).json({
+          success: false,
+          message: 'Không tìm thấy bài viết này',
+        })
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+)
+
+router.post('/newfeed/:id/comment', authenticateToken, async (req, res) => {
+  const comment = {
+    caption: req.body.caption,
+    media: req.body.media || [],
+    username: req.response.username,
+  }
+
+  try {
+    const targetNewFeed = await NewFeed.findOne({ _id: req.params.id })
+    if (targetNewFeed) {
+      const targetNewFeedComments = targetNewFeed.comments
+      const newComments = await createComment(comment, targetNewFeedComments)
+      await NewFeed.findOneAndUpdate(
+        { _id: req.params.id },
+        { comments: newComments }
+      )
+      res.json({
+        success: true,
+        response: {},
+      })
+    } else {
+      res.status(404).json({
+        success: false,
+        message: 'Không tìm thấy bài viết này',
+      })
+    }
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+router.put(
+  '/newfeed/:id/comment/:commentId',
+  authenticateToken,
+  async (req, res) => {
+    const comment = {
+      caption: req.body.caption,
+      media: req.body.media || [],
+      username: req.response.username,
+      commentId: req.params.commentId,
+    }
+
+    try {
+      const targetNewFeed = await NewFeed.findOne({ _id: req.params.id })
+      if (targetNewFeed) {
+        const targetNewFeedComments = targetNewFeed.comments
+        const newComments = await updateComment(comment, targetNewFeedComments)
+        if (typeof newComments !== 'boolean') {
+          await NewFeed.findOneAndUpdate(
+            { _id: req.params.id },
+            { comments: newComments }
+          )
+          res.json({
+            success: true,
+            response: {},
+          })
+        } else {
+          res.status(403).json({
+            success: false,
+            message: 'Không có quyền sửa bài viết này',
+          })
+        }
       } else {
         res.status(404).json({
           success: false,

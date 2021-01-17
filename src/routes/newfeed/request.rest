@@ -5,13 +5,13 @@ Content-Type: application/json
 
 {
   "type": "NORMAL",
-  "caption": "Sample caption 1",
+  "caption": "Testing Reaction",
   "media": [],
   "tags": []
 }
 
 ###
-GET http://localhost:3000/newfeed/60040be78aa8871c40695056
+GET http://localhost:3000/newfeed/600479f81633c43248dfdf00
 x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA3MzkwMTUsImV4cCI6MTYxMDk5ODIxNX0.3gbOUg_c7CbvRpekDjby2hgE_ING53l2u4u1eT8LZLE
 
 ###
@@ -23,11 +23,39 @@ GET http://localhost:3000/newfeeds/user/test2
 x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA3MzkwMTUsImV4cCI6MTYxMDk5ODIxNX0.3gbOUg_c7CbvRpekDjby2hgE_ING53l2u4u1eT8LZLE
 
 ###
-PUT http://localhost:3000/newfeed/reaction/60040be78aa8871c40695056
-x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA3MzkwMTUsImV4cCI6MTYxMDk5ODIxNX0.3gbOUg_c7CbvRpekDjby2hgE_ING53l2u4u1eT8LZLE
+PUT http://localhost:3000/newfeed/reaction/600468e1ccd6bc2a288ae2b1
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDJiNWQyYmYyMWQzMzU2OGI1YzAzNCIsInVzZXJuYW1lIjoidGVzdDMiLCJpYXQiOjE2MTA5MDE4MDAsImV4cCI6MTYxMTE2MTAwMH0.w0xFIN32XGZX4c81wXltOGSVeiGZ9itq5EI4ZecTo3g
 Content-Type: application/json
 
 {
-  "type": "LIKE",
-  "isReacted": true
+  "type": "WOW"
 }
+
+###
+POST http://localhost:3000/newfeed/600479f81633c43248dfdf00/comment
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDJiNWQyYmYyMWQzMzU2OGI1YzAzNCIsInVzZXJuYW1lIjoidGVzdDMiLCJpYXQiOjE2MTA5MDE4MDAsImV4cCI6MTYxMTE2MTAwMH0.w0xFIN32XGZX4c81wXltOGSVeiGZ9itq5EI4ZecTo3g
+Content-Type: application/json
+
+{
+  "caption": "Alo ban oi",
+  "media": []
+}
+
+###
+PUT http://localhost:3000/newfeed/600479f81633c43248dfdf00/comment/60047b2bb4436717b46ee66c
+x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA5MDY0NTQsImV4cCI6MTYxMTE2NTY1NH0.jt_vPigpKk_d4AKeFIycvBGXDtiHqS_mEJic4VG9M1U
+Content-Type: application/json
+
+{
+  "caption": "Alo ban Iu",
+  "media": []
+}
+
+# ###
+# PUT http://localhost:3000/newfeed/600468e1ccd6bc2a288ae2b1/comment/jasdklfjlasdkjfkl/reaction
+# x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDJiNWQyYmYyMWQzMzU2OGI1YzAzNCIsInVzZXJuYW1lIjoidGVzdDMiLCJpYXQiOjE2MTA5MDE4MDAsImV4cCI6MTYxMTE2MTAwMH0.w0xFIN32XGZX4c81wXltOGSVeiGZ9itq5EI4ZecTo3g
+# Content-Type: application/json
+
+# {
+#   "type": "WOW"
+# }
