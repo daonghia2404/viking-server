@@ -23,7 +23,7 @@ GET http://localhost:3000/newfeeds/user/test2
 x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFlY2NmNDlkZTA5MmQ4Y2U2MGIzMiIsInVzZXJuYW1lIjoidGVzdDIiLCJpYXQiOjE2MTA3MzkwMTUsImV4cCI6MTYxMDk5ODIxNX0.3gbOUg_c7CbvRpekDjby2hgE_ING53l2u4u1eT8LZLE
 
 ###
-PUT http://localhost:3000/newfeed/reaction/600468e1ccd6bc2a288ae2b1
+PUT http://localhost:3000/newfeed/600468e1ccd6bc2a288ae2b1/reaction
 x-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDJiNWQyYmYyMWQzMzU2OGI1YzAzNCIsInVzZXJuYW1lIjoidGVzdDMiLCJpYXQiOjE2MTA5MDE4MDAsImV4cCI6MTYxMTE2MTAwMH0.w0xFIN32XGZX4c81wXltOGSVeiGZ9itq5EI4ZecTo3g
 Content-Type: application/json
 

@@ -122,7 +122,7 @@ router.get('/newfeeds/user/:username', async (req, res) => {
 })
 
 router.put(
-  '/newfeed/reaction/:id',
+  '/newfeed/:id/reaction',
   authenticateToken,
   checkTypeReaction,
   async (req, res) => {
