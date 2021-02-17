@@ -70,10 +70,9 @@ const MediaSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    reactions: {
-      type: ReactionSchema,
-      required: true,
-    },
+    // reactions: {
+    //   type: ReactionSchema,
+    // },
   },
   { timestamps: true }
 )
@@ -108,6 +107,13 @@ const CommentSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
+const TagSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+})
+
 const NewFeedSchema = new mongoose.Schema(
   {
     type: {
@@ -132,7 +138,7 @@ const NewFeedSchema = new mongoose.Schema(
       required: true,
     },
     tags: {
-      type: [String],
+      type: [TagSchema],
       required: true,
     },
     userCreatePost: {

@@ -39,10 +39,7 @@ router.post('/register', async (req, res) => {
     const result = await newUser.save()
     res.json({
       success: true,
-      response: {
-        username: result.username,
-        password: result.password,
-      },
+      response: {},
     })
   } catch (err) {
     if (err.keyValue) {
