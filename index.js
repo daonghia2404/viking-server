@@ -44,7 +44,7 @@ const uploadsRoute = require('./src/routes/uploads/uploads')
 const newfeedRoute = require('./src/routes/newfeed/newfeed')
 
 app.get('/', (req, res) => {
-  res.send('Welcome to Viking Server !!')
+  res.send('Welcome to Viking Server Auto Deploy !!')
 })
 
 app.use(userRoute)
