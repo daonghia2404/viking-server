@@ -5,7 +5,8 @@ const Grid = require('gridfs-stream');
 const { DB_URI } = require('./src/common/static-data')
 
 const app = express()
-const PORT = 3000
+// const PORT = 3000
+const PORT = process.env.PORT
 
 // parse application/json
 app.use(bodyParser.json())
