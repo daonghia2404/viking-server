@@ -44,9 +44,18 @@ const uploadsRoute = require('./src/routes/uploads/uploads')
 const newfeedRoute = require('./src/routes/newfeed/newfeed')
 
 app.get('/', (req, res) => {
-  res.send('Welcome to Viking Server Auto Deploy !!')
+  res.send('Welcome to Viking Server !!')
 })
 
 app.use(userRoute)
 app.use(uploadsRoute)
 app.use(newfeedRoute)
+
+// Deploy
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
