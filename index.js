@@ -5,8 +5,7 @@ const Grid = require('gridfs-stream');
 const { DB_URI } = require('./src/common/static-data')
 
 const app = express()
-// const PORT = 3000
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 // parse application/json
 app.use(bodyParser.json())
@@ -43,6 +42,10 @@ initConnectDb()
 const userRoute = require('./src/routes/auth/auth')
 const uploadsRoute = require('./src/routes/uploads/uploads')
 const newfeedRoute = require('./src/routes/newfeed/newfeed')
+
+app.get('/', (req, res) => {
+  res.send('Welcome to Viking Server !!')
+})
 
 app.use(userRoute)
 app.use(uploadsRoute)
